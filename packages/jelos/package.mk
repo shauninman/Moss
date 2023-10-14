@@ -39,10 +39,14 @@ makeinstall_target() {
 
   if [ -n "${LOCAL_WIFI_SSID}" ]
   then
+    sed -i "s#ssh.enabled=0#ssh.enabled=1#g" ${INSTALL}/usr/config/system/configs/system.cfg
+    sed -i "s#rotate.root.password=1#rotate.root.password=0#g" ${INSTALL}/usr/config/system/configs/system.cfg
     sed -i "s#network.enabled=0#network.enabled=1#g" ${INSTALL}/usr/config/system/configs/system.cfg
     cat <<EOF >> ${INSTALL}/usr/config/system/configs/system.cfg
+root.password=root
 wifi.ssid=${LOCAL_WIFI_SSID}
 wifi.key=${LOCAL_WIFI_KEY}
+wifi.enabled=1
 EOF
   fi
 }
@@ -78,14 +82,6 @@ EOF
   enable_service save-sysconfig.service
 
   sed -i "s#@DEVICENAME@#${DEVICE}#g" ${INSTALL}/usr/config/system/configs/system.cfg
-
-  ### Defaults for non-main builds.
-  BUILD_BRANCH="$(git branch --show-current)"
-  if [[ ! "${BUILD_BRANCH}" =~ main ]]
-  then
-    sed -i "s#ssh.enabled=0#ssh.enabled=1#g" ${INSTALL}/usr/config/system/configs/system.cfg
-    sed -i "s#network.enabled=0#network.enabled=1#g" ${INSTALL}/usr/config/system/configs/system.cfg
-  fi
 
   ### Disable automount on AMD64
   if [ "${DEVICE}" = "AMD64" ]
