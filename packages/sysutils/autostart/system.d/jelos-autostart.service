@@ -1,6 +1,6 @@
 [Unit]
 Description=JELOS user autostart script
-Before=emulationstation.service
+Before=minui.service
 After=network-base.service graphical.target
 
 [Service]

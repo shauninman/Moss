@@ -1,0 +1,14 @@
+[Unit]
+Description=MinUI integrated launcher and frontend
+ConditionPathExists=/var/lock/start.games
+
+[Service]
+ExecStart=/usr/bin/start_minui.sh > /var/log/start_minui.log 2>&1
+KillMode=control-group
+TimeoutStopSec=3
+Restart=always
+RestartSec=2
+StartLimitInterval=0
+
+[Install]
+WantedBy=jelos.target
