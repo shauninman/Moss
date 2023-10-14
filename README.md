@@ -2,7 +2,7 @@
 
 MinUI OS Subsystem is a pared down fork of [JELOS](https://github.com/JustEnoughLinuxOS/distribution) used as the foundation for [MinUI](https://github.com/shauninman/MinUI) on the RGB30.
 
-You can [grab the latest version here.](https://github.com/shauninman/ELLOS/releases)
+You can [grab the latest version here.](https://github.com/shauninman/Moss/releases)
 
 ## Why the name change?
 
