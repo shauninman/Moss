@@ -125,7 +125,7 @@ mount_common() {
     usleep 1000000
   done
   [ "${ERR_ENV}" -eq "0" ] && return 0
-  echo "Unable to find $1, powering off and on should correct it." >/dev/console
+  # echo "Unable to find $1, powering off and on should correct it." >/dev/console
   StartProgress countdown "Power off in 3s... " 3 "NOW"
   poweroff
 }

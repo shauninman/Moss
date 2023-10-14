@@ -21,13 +21,13 @@ then
 else
   ui_state stop
   clear >/dev/console 2>&1
-  $* >/dev/console 2>&1
+  # $* >/dev/console 2>&1
   if [ "$?" == 0 ]
   then
     ui_state start
     exit 0
   else
-    "$*" >/dev/console 2>&1
+    # "$*" >/dev/console 2>&1
     ui_state start
     exit 0
   fi

@@ -15,7 +15,8 @@ ES_CONF="/storage/.emulationstation/es_settings.cfg"
 JSLISTENCONF="${J_DIR}/configs/jslisten.cfg"
 
 function tocon() {
-  echo -ne "\033[1000H\033[2K==> ${*}" >/dev/console
+  # echo -ne "\033[1000H\033[2K==> ${*}" >/dev/console
+  return
 }
 
 function log() {
