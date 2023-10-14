@@ -8,25 +8,25 @@
   HARDENING_SUPPORT="no"
 
 # The name of the parent organization for updates
-  GIT_ORGANIZATION="JustEnoughLinuxOS"
+  GIT_ORGANIZATION=""
 
 # The name of the github project for updates
   GIT_REPO="distribution"
 
 # Name of the Distro to build (full name, without special characters)
-  DISTRONAME="JELOS"
+  DISTRONAME="MOSS"
 
 # short project description
-  DESCRIPTION="An Open Source firmware."
+  DESCRIPTION="MinUI OS Subsystem, a barebones firmware for the RGB30 based on JELOS."
 
 # Distribution Home URL
-  HOME_URL="https://www.jelos.org"
+  HOME_URL="https://github.com/shauninman/Moss"
 
 # Documentation URL
-  WIKI_URL="https://www.jelos.org"
+  WIKI_URL=""
 
 # Where to report bugs
-  BUG_REPORT_URL="https://www.jelos.org"
+  BUG_REPORT_URL=""
 
 # Root password to integrate in the target system
   ROOT_PASSWORD="system generated"
@@ -154,7 +154,7 @@
 
 # Distribution Specific source location
   DISTRO_MIRROR=""
-  DISTRO_SRC="https://github.com/JustEnoughLinuxOS"
+  DISTRO_SRC="https://github.com/shauninman/Moss"
 
 # Default size of system partition, in MB, eg. 512
   SYSTEM_SIZE=2048
@@ -169,7 +169,7 @@
   GET_HANDLER_SUPPORT="archive git file"
 
 # Partition labels for USB/SD installation media
-  DISTRO_BOOTLABEL="JELOS"
+  DISTRO_BOOTLABEL="MOSS"
   DISTRO_DISKLABEL="STORAGE"
 
 # Settings package name - blank if not required

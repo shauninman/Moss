@@ -43,7 +43,7 @@ if [ -e /storage/.please_resize_me ] ; then
     clear >/dev/console
     echo "PARTITION RESIZING IN PROGRESS"
     echo ""
-    echo "Please do not reboot or turn off your @DISTRONAME@ device!"
+    echo "Please do not reboot or turn off your device!"
     echo ""
 
     # identify the partition scheme, and if gpt fix minor issues such as gpt header not at end of disk
