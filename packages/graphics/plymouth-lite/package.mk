@@ -6,7 +6,7 @@ PKG_VERSION="92b3d5ba65b2ca88d02450380cc499014a4325b4"
 PKG_LICENSE="GPL"
 PKG_SITE="https://github.com/JustEnoughLinuxOS/plymouth-lite"
 PKG_URL="${PKG_SITE}.git"
-PKG_DEPENDS_INIT="toolchain ccache:init libpng"
+PKG_DEPENDS_INIT="toolchain libpng"
 PKG_DEPENDS_TARGET="toolchain libpng"
 PKG_LONGDESC="Boot splash screen based on Fedora's Plymouth code"
 

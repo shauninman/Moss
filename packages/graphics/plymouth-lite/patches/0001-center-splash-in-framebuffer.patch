@@ -1,0 +1,89 @@
+diff -rupN a/ply-frame-buffer.c b/ply-frame-buffer.c
+--- a/ply-frame-buffer.c	2023-09-25 13:52:12.783807769 +0000
++++ b/ply-frame-buffer.c	2023-09-25 15:03:46.107327014 +0000
+@@ -783,6 +783,38 @@ ply_frame_buffer_fill_with_argb32_data_w
+   return ply_frame_buffer_flush (buffer);
+ }
+ 
++bool
++ply_frame_buffer_center_argb32_data(ply_frame_buffer_t      *buffer,
++                                                   unsigned long            width,
++                                                   unsigned long            height,
++                                                   uint32_t                *data)
++{
++    assert (buffer != NULL);
++    assert (ply_frame_buffer_device_is_open (buffer));
++	
++	ply_frame_buffer_area_t area = buffer->area;
++	
++	unsigned long x, y, x1, y1, x2, y2;
++	x1 = (area.width - width) / 2;
++	y1 = (area.height - height) / 2;
++	x2 = x1 + width;
++	y2 = y1 + height;
++	
++	for (y=0; y<area.height; y++) {
++		for (x=0; x<area.width; x++) {
++			uint32_t pixel_value = 0xff000000;
++			if (x>=x1 && x<x2 && y>=y1 && y<y2) {
++				pixel_value = data[(y-y1) * width + (x-x1)];
++			}
++			buffer->shadow_buffer[(y * area.width) + x] = pixel_value;
++		}
++	}
++
++    ply_frame_buffer_add_area_to_flush_area (buffer, &area);
++
++    return ply_frame_buffer_flush (buffer);
++}
++
+ bool 
+ ply_frame_buffer_fill_with_argb32_data(ply_frame_buffer_t      *buffer,
+                                                    ply_frame_buffer_area_t *area,
+diff -rupN a/ply-frame-buffer.h b/ply-frame-buffer.h
+--- a/ply-frame-buffer.h	2023-09-25 13:52:12.750972857 +0000
++++ b/ply-frame-buffer.h	2023-09-25 14:29:30.048259115 +0000
+@@ -112,6 +112,12 @@ bool ply_frame_buffer_fill_with_gradient
+ 					  uint32_t                 start,
+ 					  uint32_t                 end);
+ 
++bool
++ply_frame_buffer_center_argb32_data(ply_frame_buffer_t      *buffer,
++                                                 unsigned long            width,
++                                                 unsigned long            height,
++                                                 uint32_t                *data);
++
+ bool ply_frame_buffer_fill_with_argb32_data (ply_frame_buffer_t      *buffer,
+                                              ply_frame_buffer_area_t  *area,
+                                              unsigned long        x,
+diff -rupN a/ply-image.c b/ply-image.c
+--- a/ply-image.c	2023-09-25 13:52:12.776154663 +0000
++++ b/ply-image.c	2023-09-25 14:59:24.632950749 +0000
+@@ -417,15 +417,8 @@ animate_at_time (ply_frame_buffer_t *buf
+   width = ply_image_get_width (image);
+   height = ply_image_get_height (image);
+ 
+-  ply_frame_buffer_get_size (buffer, &area);
+-  area.x = (area.width / 2) - (width / 2);
+-  area.y = (area.height / 2) - (height / 2);
+-  area.width = width;
+-  area.height = height;
+-
+-
+   ply_frame_buffer_pause_updates (buffer);
+-  ply_frame_buffer_fill_with_argb32_data(buffer, &area, 0, 0, data);
++  ply_frame_buffer_center_argb32_data(buffer, width, height, data);
+   ply_frame_buffer_unpause_updates (buffer);
+ 
+ }
+@@ -464,9 +457,7 @@ main (int    argc,
+       perror ("could not open framebuffer");
+       return exit_code;
+     }
+-
+-  image = ply_image_resize(image, buffer->area.width, buffer->area.height);
+-
++  
+   animate_at_time (buffer, image);
+ 
+   ply_frame_buffer_close (buffer);
