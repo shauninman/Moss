@@ -42,7 +42,6 @@ then
     done
 
   fi
-  systemctl restart systemd-logind &
   mkdir -p /storage/.config/modprobe.d  >/dev/null 2>&1
   touch /storage/.configured  >/dev/null 2>&1
 fi
